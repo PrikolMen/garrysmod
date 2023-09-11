@@ -32,8 +32,9 @@ matproxy.Add( {
 
 		-- If the target ent has a function called GetPlayerColor then use that
 		-- The function SHOULD return a Vector with the chosen player's colour.
-		if ( ent.GetPlayerColor ) then
-			local col = ent:GetPlayerColor()
+		local func = ent.GetPlayerColor
+		if ( func ) then
+			local col = func( ent )
 			if ( isvector( col ) ) then
 				mat:SetVector( self.ResultTo, col )
 				return
