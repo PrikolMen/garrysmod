@@ -6,16 +6,21 @@
 -----------------------------------------------------------]]
 
 local clrFallback = Vector( 62 / 255, 88 / 255, 106 / 255 )
+local isvector = isvector
+local IsValid = IsValid
 
 matproxy.Add( {
 	name = "PlayerColor",
 
 	init = function( self, mat, values )
+
 		-- Store the name of the variable we want to set
 		self.ResultTo = values.resultvar
+
 	end,
 
 	bind = function( self, mat, ent )
+
 		if ( !IsValid( ent ) ) then return end
 
 		-- If entity is a ragdoll try to convert it into the player
@@ -31,9 +36,11 @@ matproxy.Add( {
 			local col = ent:GetPlayerColor()
 			if ( isvector( col ) ) then
 				mat:SetVector( self.ResultTo, col )
+				return
 			end
-		else
-			mat:SetVector( self.ResultTo, clrFallback )
 		end
+
+		mat:SetVector( self.ResultTo, clrFallback )
+
 	end
 } )
